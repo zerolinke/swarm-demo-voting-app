@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+  voting-app:
+    image: vieux/voteapps_voting-app
+    ports:
+      - "5000:80"
+
+  redis:
+    image: redis
+    ports: ["6379"]
+
+  worker:
+    image: vieux/voteapps_worker
+    links:
+      - redis
+
+  db:
+    image: postgres:9.4
+
+  result-app:
+    image: vieux/voteapps_result-app
+    ports:
+      - "5001:80"
+    links:
+      - db
+
+#networks:
+#  default:
+#    driver: overlay
