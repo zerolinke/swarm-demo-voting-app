@@ -13,9 +13,7 @@ var redisclient *redis.Client
 var mongoclient *mgo.Session
 
 func init() {
-
 	fmt.Println("init...")
-
 	rh := os.Getenv("redishost")
 	if rh == "" {
 		rh = "121.201.18.33:6379"
@@ -27,9 +25,7 @@ func init() {
 		mh = "mongodb://121.201.18.33:27017"
 	}
 	mongoclient = newMongoClient(mh)
-
 	fmt.Println("init done")
-
 }
 
 func newReidClient(rh string) *redis.Client {
@@ -55,7 +51,7 @@ func newMongoClient(mh string) *mgo.Session {
 }
 
 func main() {
-	
+
 	fmt.Println("main...")
 
 	collection := mongoclient.DB("voting").C("vote")
@@ -63,10 +59,8 @@ func main() {
 	for true {
 		pop := redisclient.BLPop(0, "votes")
 		var vote map[string]interface{}
-		json.Unmarshal([]byt
-
+		json.Unmarshal([]byte(pop.Val()[1]), &vote)
 		fmt.Println(pop)
-
 		vid := vote["voter_id"]
 		collection.UpsertId(bson.M{"voter_id":vid}, &vote)
 	}
