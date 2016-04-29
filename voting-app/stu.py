@@ -12,7 +12,7 @@ import random
 
 option_a = os.getenv('OPTION_A', "Cats")
 option_b = os.getenv('OPTION_B', "Dogs")
-redishost = os.getenv('redishost', "121.201.18.33")
+redishost = os.getenv('redishost', "0.0.0.0")
 redisport = os.getenv('redisport', 6379)
 hostname = socket.gethostname()
 
