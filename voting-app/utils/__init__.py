@@ -2,16 +2,16 @@ import time
 from redis import Redis, ConnectionError
 
 
-def connect_to_redis(host):
+def connect_to_redis(host, port,db=0):
     time.sleep(2)
     print "Connecting to redis"
 
     while True:
         try:
-            redis = Redis(host=host, db=0)
+            redis = Redis(host=host, port=port)
             redis.ping()
             print "Connected to redis"
             return redis
         except ConnectionError:
-            print "Failed to connect to redis - retrying"
+            print "Failed to connect to redis -retrying"
             time.sleep(1)
